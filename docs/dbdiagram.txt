@@ -1,0 +1,2 @@
+Lien diagramme relations BDD :
+https://dbdiagram.io/d/gestion_commerciale-6967ad18d6e030a024099781
