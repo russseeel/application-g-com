@@ -9,8 +9,10 @@ namespace GestionCommerciale.Data
         private const string SERVER = "localhost";
         private const string DATABASE = "gestion_commerciale";
         private const string USER = "root";
-        private const string PASSWORD = "root"; // Vérifie si ton MySQL a vraiment "root" comme mdp ou s'il est vide ""
         private const string PORT = "3306";
+
+        private static readonly string PASSWORD =
+            Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "";
 
         private static string ConnectionString =>
             $"Server={SERVER};Port={PORT};Database={DATABASE};Uid={USER};Pwd={PASSWORD};Charset=utf8;";
@@ -28,10 +30,9 @@ namespace GestionCommerciale.Data
                 {
                     Console.WriteLine("Tentative de connexion à MySQL...");
                     conn.Open();
+
                     if (conn.State == ConnectionState.Open)
-                    {
                         Console.WriteLine("SUCCÈS : La connexion est établie !");
-                    }
                 }
                 catch (MySqlException ex)
                 {
