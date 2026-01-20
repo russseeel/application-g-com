@@ -1,1 +1,0 @@
-# application-g-com

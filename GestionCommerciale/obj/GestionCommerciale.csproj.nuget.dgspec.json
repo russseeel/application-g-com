@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/samirhoussaini/Documents/Projet/appli-gestion-commerciale/GestionCommerciale/GestionCommerciale.csproj": {}
+    "/home/samirhoussaini/Documents/Projet/application-g-com/GestionCommerciale/GestionCommerciale.csproj": {}
   },
   "projects": {
-    "/home/samirhoussaini/Documents/Projet/appli-gestion-commerciale/GestionCommerciale/GestionCommerciale.csproj": {
+    "/home/samirhoussaini/Documents/Projet/application-g-com/GestionCommerciale/GestionCommerciale.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/samirhoussaini/Documents/Projet/appli-gestion-commerciale/GestionCommerciale/GestionCommerciale.csproj",
+        "projectUniqueName": "/home/samirhoussaini/Documents/Projet/application-g-com/GestionCommerciale/GestionCommerciale.csproj",
         "projectName": "GestionCommerciale",
-        "projectPath": "/home/samirhoussaini/Documents/Projet/appli-gestion-commerciale/GestionCommerciale/GestionCommerciale.csproj",
+        "projectPath": "/home/samirhoussaini/Documents/Projet/application-g-com/GestionCommerciale/GestionCommerciale.csproj",
         "packagesPath": "/home/samirhoussaini/.nuget/packages/",
-        "outputPath": "/home/samirhoussaini/Documents/Projet/appli-gestion-commerciale/GestionCommerciale/obj/",
+        "outputPath": "/home/samirhoussaini/Documents/Projet/application-g-com/GestionCommerciale/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/samirhoussaini/.nuget/NuGet/NuGet.Config"
@@ -44,6 +44,10 @@
           "targetAlias": "net8.0",
           "dependencies": {
             "Avalonia": {
+              "target": "Package",
+              "version": "[11.3.11, )"
+            },
+            "Avalonia.Controls.DataGrid": {
               "target": "Package",
               "version": "[11.3.11, )"
             },
