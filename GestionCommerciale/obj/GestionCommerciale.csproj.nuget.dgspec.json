@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/samirhoussaini/Documents/Projet/application-g-com/GestionCommerciale/GestionCommerciale.csproj": {}
+    "/home/kulture/application-g-com/GestionCommerciale/GestionCommerciale.csproj": {}
   },
   "projects": {
-    "/home/samirhoussaini/Documents/Projet/application-g-com/GestionCommerciale/GestionCommerciale.csproj": {
+    "/home/kulture/application-g-com/GestionCommerciale/GestionCommerciale.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/samirhoussaini/Documents/Projet/application-g-com/GestionCommerciale/GestionCommerciale.csproj",
+        "projectUniqueName": "/home/kulture/application-g-com/GestionCommerciale/GestionCommerciale.csproj",
         "projectName": "GestionCommerciale",
-        "projectPath": "/home/samirhoussaini/Documents/Projet/application-g-com/GestionCommerciale/GestionCommerciale.csproj",
-        "packagesPath": "/home/samirhoussaini/.nuget/packages/",
-        "outputPath": "/home/samirhoussaini/Documents/Projet/application-g-com/GestionCommerciale/obj/",
+        "projectPath": "/home/kulture/application-g-com/GestionCommerciale/GestionCommerciale.csproj",
+        "packagesPath": "/home/kulture/.nuget/packages/",
+        "outputPath": "/home/kulture/application-g-com/GestionCommerciale/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/samirhoussaini/.nuget/NuGet/NuGet.Config"
+          "/home/kulture/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -32,11 +32,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -92,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.416/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

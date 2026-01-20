@@ -8,8 +8,8 @@ namespace GestionCommerciale.Data
     {
         private const string SERVER = "localhost";
         private const string DATABASE = "gestion_commerciale";
-        private const string USER = "root";
-        private const string PASSWORD = "root"; // Vérifie si ton MySQL a vraiment "root" comme mdp ou s'il est vide ""
+        private const string USER = "gestion";
+        private const string PASSWORD = "azerty";
         private const string PORT = "3306";
 
         private static string ConnectionString =>
