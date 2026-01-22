@@ -7,6 +7,6 @@
         Height="800"
         Background="White">
     
-    <views:ClientsView />
+    <views:ProduitsView />
     
 </Window>

@@ -8,7 +8,7 @@ namespace GestionCommerciale.Data
     {
         private const string SERVER = "localhost";
         private const string DATABASE = "gestion_commerciale";
-        private const string USER = "root";
+        private const string USER = "gestion";
         private const string PORT = "3306";
 
         private static readonly string PASSWORD =
