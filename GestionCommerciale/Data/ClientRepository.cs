@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using GestionCommerciale.Models; // AJOUT : import du namespace Models
 
 namespace GestionCommerciale.Data
 {
@@ -40,8 +41,8 @@ namespace GestionCommerciale.Data
                                 Nom = reader.GetString("nom"),
                                 Prenom = reader.GetString("prenom"),
                                 Email = reader.GetString("email"),
-                                Telephone = reader.IsDBNull(reader.GetOrdinal("telephone")) ? null : reader.GetString("telephone"),
-                                Adresse = reader.IsDBNull(reader.GetOrdinal("adresse")) ? null : reader.GetString("adresse"),
+                                Telephone = reader.IsDBNull(reader.GetOrdinal("telephone")) ? string.Empty : reader.GetString("telephone"),
+                                Adresse = reader.IsDBNull(reader.GetOrdinal("adresse")) ? string.Empty : reader.GetString("adresse"),
                                 DateCreation = reader.GetDateTime("date_creation")
                             });
                         }
@@ -85,8 +86,8 @@ namespace GestionCommerciale.Data
                                     Nom = reader.GetString("nom"),
                                     Prenom = reader.GetString("prenom"),
                                     Email = reader.GetString("email"),
-                                    Telephone = reader.IsDBNull(reader.GetOrdinal("telephone")) ? null : reader.GetString("telephone"),
-                                    Adresse = reader.IsDBNull(reader.GetOrdinal("adresse")) ? null : reader.GetString("adresse"),
+                                    Telephone = reader.IsDBNull(reader.GetOrdinal("telephone")) ? string.Empty : reader.GetString("telephone"),
+                                    Adresse = reader.IsDBNull(reader.GetOrdinal("adresse")) ? string.Empty : reader.GetString("adresse"),
                                     DateCreation = reader.GetDateTime("date_creation")
                                 };
                             }
@@ -119,8 +120,8 @@ namespace GestionCommerciale.Data
                         cmd.Parameters.AddWithValue("@nom", client.Nom);
                         cmd.Parameters.AddWithValue("@prenom", client.Prenom);
                         cmd.Parameters.AddWithValue("@email", client.Email);
-                        cmd.Parameters.AddWithValue("@telephone", client.Telephone ?? (object)DBNull.Value);
-                        cmd.Parameters.AddWithValue("@adresse", client.Adresse ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@telephone", string.IsNullOrEmpty(client.Telephone) ? (object)DBNull.Value : client.Telephone);
+                        cmd.Parameters.AddWithValue("@adresse", string.IsNullOrEmpty(client.Adresse) ? (object)DBNull.Value : client.Adresse);
 
                         int rowsAffected = cmd.ExecuteNonQuery();
                         return rowsAffected > 0;
@@ -177,8 +178,8 @@ namespace GestionCommerciale.Data
                         cmd.Parameters.AddWithValue("@nom", client.Nom);
                         cmd.Parameters.AddWithValue("@prenom", client.Prenom);
                         cmd.Parameters.AddWithValue("@email", client.Email);
-                        cmd.Parameters.AddWithValue("@telephone", client.Telephone ?? (object)DBNull.Value);
-                        cmd.Parameters.AddWithValue("@adresse", client.Adresse ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@telephone", string.IsNullOrEmpty(client.Telephone) ? (object)DBNull.Value : client.Telephone);
+                        cmd.Parameters.AddWithValue("@adresse", string.IsNullOrEmpty(client.Adresse) ? (object)DBNull.Value : client.Adresse);
 
                         int rowsAffected = cmd.ExecuteNonQuery();
                         return rowsAffected > 0;
@@ -263,8 +264,8 @@ namespace GestionCommerciale.Data
                                     Nom = reader.GetString("nom"),
                                     Prenom = reader.GetString("prenom"),
                                     Email = reader.GetString("email"),
-                                    Telephone = reader.IsDBNull(reader.GetOrdinal("telephone")) ? null : reader.GetString("telephone"),
-                                    Adresse = reader.IsDBNull(reader.GetOrdinal("adresse")) ? null : reader.GetString("adresse"),
+                                    Telephone = reader.IsDBNull(reader.GetOrdinal("telephone")) ? string.Empty : reader.GetString("telephone"),
+                                    Adresse = reader.IsDBNull(reader.GetOrdinal("adresse")) ? string.Empty : reader.GetString("adresse"),
                                     DateCreation = reader.GetDateTime("date_creation")
                                 });
                             }
@@ -282,15 +283,5 @@ namespace GestionCommerciale.Data
         }
     }
 
-    // Classe modèle Client
-    public class Client
-    {
-        public int Id { get; set; }
-        public string Nom { get; set; } = string.Empty;
-        public string Prenom { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string? Telephone { get; set; }
-        public string? Adresse { get; set; }
-        public DateTime DateCreation { get; set; }
-    }
+    // SUPPRIMÉ : La classe Client est maintenant uniquement dans GestionCommerciale.Models
 }

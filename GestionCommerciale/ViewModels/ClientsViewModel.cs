@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using GestionCommerciale.Data;
+using GestionCommerciale.Models;
 
 namespace GestionCommerciale.ViewModels
 {
@@ -129,7 +130,7 @@ namespace GestionCommerciale.ViewModels
             try
             {
                 // Initialisation du repository avec la connexion
-                string connectionString = DatabaseConnection.GetConnection().ConnectionString;
+                string connectionString = DatabaseConnection.GetConnectionString();
                 _repository = new ClientRepository(connectionString);
                 
                 Console.WriteLine("ClientsViewModel initialisé");
@@ -164,10 +165,10 @@ namespace GestionCommerciale.ViewModels
                         Nom = client.Nom,
                         Prenom = client.Prenom,
                         Email = client.Email,
-                        Telephone = client.Telephone ?? "N/A",
-                        Adresse = client.Adresse ?? "N/A",
+                        Telephone = client.Telephone,
+                        Adresse = client.Adresse,
                         NomComplet = $"{client.Prenom} {client.Nom}",
-                        Ville = ExtraireVille(client.Adresse ?? "")
+                        Ville = ExtraireVille(client.Adresse)
                     });
                 }
                 
@@ -201,8 +202,8 @@ namespace GestionCommerciale.ViewModels
                     Nom = Nom,
                     Prenom = Prenom,
                     Email = Email,
-                    Telephone = string.IsNullOrWhiteSpace(Telephone) ? null : Telephone,
-                    Adresse = string.IsNullOrWhiteSpace(Adresse) ? null : Adresse
+                    Telephone = Telephone,
+                    Adresse = Adresse
                 };
 
                 bool success = _repository.Add(newClient);
@@ -247,8 +248,8 @@ namespace GestionCommerciale.ViewModels
                     Nom = Nom,
                     Prenom = Prenom,
                     Email = Email,
-                    Telephone = string.IsNullOrWhiteSpace(Telephone) ? null : Telephone,
-                    Adresse = string.IsNullOrWhiteSpace(Adresse) ? null : Adresse
+                    Telephone = Telephone,
+                    Adresse = Adresse
                 };
 
                 bool success = _repository.Update(updatedClient);
@@ -322,10 +323,10 @@ namespace GestionCommerciale.ViewModels
                         Nom = client.Nom,
                         Prenom = client.Prenom,
                         Email = client.Email,
-                        Telephone = client.Telephone ?? "N/A",
-                        Adresse = client.Adresse ?? "N/A",
+                        Telephone = client.Telephone,
+                        Adresse = client.Adresse,
                         NomComplet = $"{client.Prenom} {client.Nom}",
-                        Ville = ExtraireVille(client.Adresse ?? "")
+                        Ville = ExtraireVille(client.Adresse)
                     });
                 }
                 

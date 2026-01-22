@@ -1,0 +1,365 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:GestionCommerciale.ViewModels"
+             x:Class="GestionCommerciale.Views.CommandesView"
+             x:DataType="vm:CommandesViewModel"
+             Background="White">
+  
+  <UserControl.DataContext>
+    <vm:CommandesViewModel />
+  </UserControl.DataContext>
+
+  <Grid Margin="20">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <!-- Titre -->
+    <TextBlock Grid.Row="0" 
+               Text="Gestion des Commandes" 
+               FontSize="24" 
+               FontWeight="Bold" 
+               Foreground="#2C3E50"
+               Margin="0,0,0,20" />
+
+    <!-- Barre de recherche / filtres -->
+    <Grid Grid.Row="1" Margin="0,0,0,20">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <StackPanel Grid.Column="0" 
+                  Orientation="Horizontal" 
+                  Spacing="10">
+        <TextBlock Text="Filtrer par:" 
+                   VerticalAlignment="Center" 
+                   Foreground="#34495E"
+                   FontWeight="SemiBold" />
+        
+        <ComboBox Width="200"
+                  PlaceholderText="Tous les clients"
+                  Height="35">
+          <ComboBoxItem Content="Tous les clients" />
+        </ComboBox>
+        
+        <ComboBox Width="200"
+                  PlaceholderText="Tous les produits"
+                  Height="35">
+          <ComboBoxItem Content="Tous les produits" />
+        </ComboBox>
+      </StackPanel>
+
+      <Button Grid.Column="1" 
+              Content="Rafraîchir" 
+              Click="OnRafraichirClick"
+              Background="#95A5A6"
+              Foreground="White"
+              Height="35"
+              Padding="20,0"
+              CornerRadius="4"
+              HorizontalContentAlignment="Center"
+              VerticalContentAlignment="Center" />
+    </Grid>
+
+    <!-- Liste des commandes -->
+    <Border Grid.Row="2" 
+            BorderBrush="#BDC3C7" 
+            BorderThickness="1" 
+            CornerRadius="4"
+            Margin="0,0,0,20"
+            Background="White">
+      <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <ItemsControl ItemsSource="{Binding Commandes}" Background="White" x:Name="CommandesListControl">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          
+          <ItemsControl.Template>
+            <ControlTemplate>
+              <StackPanel>
+                <!-- En-têtes -->
+                <Grid Background="#ECF0F1" Height="40">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="220" />
+                    <ColumnDefinition Width="220" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  
+                  <TextBlock Grid.Column="0" Text="ID" FontWeight="Bold" Foreground="#2C3E50" 
+                             VerticalAlignment="Center" Margin="10,0" />
+                  <TextBlock Grid.Column="1" Text="Client" FontWeight="Bold" Foreground="#2C3E50" 
+                             VerticalAlignment="Center" Margin="10,0" />
+                  <TextBlock Grid.Column="2" Text="Produit" FontWeight="Bold" Foreground="#2C3E50" 
+                             VerticalAlignment="Center" Margin="10,0" />
+                  <TextBlock Grid.Column="3" Text="Quantité" FontWeight="Bold" Foreground="#2C3E50" 
+                             VerticalAlignment="Center" Margin="10,0" />
+                  <TextBlock Grid.Column="4" Text="Montant Total" FontWeight="Bold" Foreground="#2C3E50" 
+                             VerticalAlignment="Center" Margin="10,0" />
+                  <TextBlock Grid.Column="5" Text="Date" FontWeight="Bold" Foreground="#2C3E50" 
+                             VerticalAlignment="Center" Margin="10,0" />
+                </Grid>
+                
+                <!-- Lignes de données -->
+                <ItemsPresenter />
+              </StackPanel>
+            </ControlTemplate>
+          </ItemsControl.Template>
+          
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" x:Name="RowBorder">
+                <Grid Background="White" Height="35" PointerPressed="OnRowClick" Cursor="Hand">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="220" />
+                    <ColumnDefinition Width="220" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  
+                  <TextBlock Grid.Column="0" Text="{Binding Id}" Foreground="Black" 
+                             VerticalAlignment="Center" Margin="10,0" FontSize="13" />
+                  <TextBlock Grid.Column="1" Text="{Binding NomClient}" Foreground="Black" 
+                             FontWeight="SemiBold" VerticalAlignment="Center" Margin="10,0" FontSize="13" />
+                  <TextBlock Grid.Column="2" Text="{Binding NomProduit}" Foreground="Black" 
+                             VerticalAlignment="Center" Margin="10,0" FontSize="13" />
+                  <TextBlock Grid.Column="3" Text="{Binding Quantite}" Foreground="Black" 
+                             VerticalAlignment="Center" Margin="10,0" FontSize="13" />
+                  <TextBlock Grid.Column="4" Foreground="#27AE60" FontWeight="SemiBold"
+                             VerticalAlignment="Center" Margin="10,0" FontSize="13">
+                    <Run Text="{Binding MontantTotal, StringFormat={}{0:F2}}" />
+                    <Run Text=" €" />
+                  </TextBlock>
+                  <TextBlock Grid.Column="5" Text="{Binding DateCommande, StringFormat={}{0:dd/MM/yyyy HH:mm}}" 
+                             Foreground="Black" VerticalAlignment="Center" Margin="10,0" FontSize="13" />
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+    </Border>
+
+    <!-- Formulaire de création de commande -->
+    <Border Grid.Row="3" 
+            Background="#ECF0F1" 
+            CornerRadius="4" 
+            Padding="20"
+            Margin="0,0,0,20">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Titre du formulaire -->
+        <TextBlock Grid.Row="0" 
+                   Grid.ColumnSpan="2"
+                   Text="Nouvelle Commande"
+                   FontSize="16"
+                   FontWeight="SemiBold"
+                   Foreground="#2C3E50"
+                   Margin="0,0,0,15" />
+
+        <!-- Ligne 1 : Client et Produit -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,10,10">
+          <TextBlock Text="Client *" Margin="0,0,0,5" Foreground="#34495E" />
+          <ComboBox ItemsSource="{Binding Clients}"
+                    SelectedItem="{Binding SelectedClient}"
+                    PlaceholderText="Sélectionner un client"
+                    Height="35"
+                    HorizontalAlignment="Stretch">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding NomComplet}"/>
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,10">
+          <TextBlock Text="Produit *" Margin="0,0,0,5" Foreground="#34495E" />
+          <ComboBox ItemsSource="{Binding Produits}"
+                    SelectedItem="{Binding SelectedProduit}"
+                    PlaceholderText="Sélectionner un produit"
+                    Height="35"
+                    HorizontalAlignment="Stretch">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <StackPanel>
+                  <TextBlock>
+                    <Run Text="{Binding Nom}" FontWeight="SemiBold"/>
+                    <Run Text=" - "/>
+                    <Run Text="{Binding PrixUnitaire, StringFormat={}{0:F2} €}"/>
+                  </TextBlock>
+                  <TextBlock FontSize="11" Foreground="#666">
+                    <Run Text="Stock: "/>
+                    <Run Text="{Binding Stock}"/>
+                  </TextBlock>
+                </StackPanel>
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
+
+        <!-- Ligne 2 : Quantité et Info produit -->
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,10,10">
+          <TextBlock Text="Quantité *" Margin="0,0,0,5" Foreground="#34495E" />
+          <NumericUpDown Value="{Binding Quantite}"
+                         Minimum="0"
+                         Maximum="9999"
+                         FormatString="0"
+                         Height="35"
+                         HorizontalAlignment="Stretch"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Margin="10,0,0,10">
+          <TextBlock Text="Informations" Margin="0,0,0,5" Foreground="#34495E" />
+          <Border Background="White" 
+                  CornerRadius="4" 
+                  Padding="10"
+                  Height="35"
+                  VerticalAlignment="Top">
+            <Grid>
+              <TextBlock VerticalAlignment="Center" 
+                         Foreground="#7F8C8D"
+                         IsVisible="{Binding SelectedProduit, Converter={x:Static ObjectConverters.IsNull}}">
+                Sélectionnez un produit
+              </TextBlock>
+              <StackPanel Orientation="Horizontal" 
+                          VerticalAlignment="Center"
+                          IsVisible="{Binding SelectedProduit, Converter={x:Static ObjectConverters.IsNotNull}}">
+                <TextBlock Foreground="#34495E" FontSize="13">
+                  <Run Text="Prix: " FontWeight="SemiBold"/>
+                  <Run Text="{Binding PrixUnitaire, StringFormat={}{0:F2} €}"/>
+                  <Run Text=" | "/>
+                  <Run Text="Stock: " FontWeight="SemiBold"/>
+                  <Run Text="{Binding StockDisponible}"/>
+                </TextBlock>
+              </StackPanel>
+            </Grid>
+          </Border>
+        </StackPanel>
+
+        <!-- Ligne 3 : Montant total et message d'erreur -->
+        <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,10,0">
+          <TextBlock Text="Montant Total" Margin="0,0,0,5" Foreground="#34495E" />
+          <Border Background="#E8F5E9" 
+                  CornerRadius="4" 
+                  Padding="15,10"
+                  Height="45">
+            <TextBlock VerticalAlignment="Center" 
+                       FontSize="18" 
+                       FontWeight="Bold" 
+                       Foreground="#27AE60">
+              <Run Text="{Binding MontantTotal, StringFormat={}{0:F2}}"/>
+              <Run Text=" €"/>
+            </TextBlock>
+          </Border>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="1" Margin="10,0,0,0">
+          <TextBlock Text="Statut" Margin="0,0,0,5" Foreground="#34495E" />
+          <Border Background="#FFEBEE" 
+                  CornerRadius="4" 
+                  Padding="10"
+                  Height="45"
+                  IsVisible="{Binding IsStockInsuffisant}">
+            <TextBlock Text="⚠ Stock insuffisant !" 
+                       Foreground="#C62828"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center" />
+          </Border>
+          <Border Background="#E8F5E9" 
+                  CornerRadius="4" 
+                  Padding="10"
+                  Height="45"
+                  IsVisible="{Binding !IsStockInsuffisant}">
+            <TextBlock Text="✓ Prêt à commander" 
+                       Foreground="#27AE60"
+                       FontWeight="SemiBold"
+                       VerticalAlignment="Center" />
+          </Border>
+        </StackPanel>
+
+      </Grid>
+    </Border>
+
+    <!-- Boutons d'action et message de statut -->
+    <Grid Grid.Row="4">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <!-- Boutons -->
+      <StackPanel Grid.Row="0" 
+                  Orientation="Horizontal" 
+                  HorizontalAlignment="Left"
+                  Spacing="10"
+                  Margin="0,0,0,10">
+        
+        <Button Content="Créer Commande" 
+                Click="OnCreerCommandeClick"
+                Background="#27AE60"
+                Foreground="White"
+                Height="40"
+                Padding="25,0"
+                CornerRadius="4"
+                FontWeight="SemiBold"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center" />
+
+        <Button Content="Voir Détails" 
+                Click="OnVoirDetailsClick"
+                Background="#3498DB"
+                Foreground="White"
+                Height="40"
+                Padding="25,0"
+                CornerRadius="4"
+                FontWeight="SemiBold"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center" />
+
+        <Button Content="Rafraîchir" 
+                Click="OnRafraichirClick"
+                Background="#95A5A6"
+                Foreground="White"
+                Height="40"
+                Padding="25,0"
+                CornerRadius="4"
+                FontWeight="SemiBold"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center" />
+      </StackPanel>
+
+      <!-- Message de statut -->
+      <Border Grid.Row="1" 
+              Background="#D5DBDB" 
+              CornerRadius="4" 
+              Padding="15,10">
+        <TextBlock Text="{Binding StatusMessage}" 
+                   Foreground="#2C3E50"
+                   FontWeight="Medium" />
+      </Border>
+    </Grid>
+
+  </Grid>
+</UserControl>
