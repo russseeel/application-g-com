@@ -10,12 +10,17 @@ namespace GestionCommerciale.Data
         private const string DATABASE = "gestion_commerciale";
         private const string USER = "root";
         private const string PORT = "3306";
-
         private static readonly string PASSWORD =
             Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "";
 
         private static string ConnectionString =>
             $"Server={SERVER};Port={PORT};Database={DATABASE};Uid={USER};Pwd={PASSWORD};Charset=utf8;";
+
+        // AJOUT : Méthode manquante pour récupérer la chaîne de connexion
+        public static string GetConnectionString()
+        {
+            return ConnectionString;
+        }
 
         public static MySqlConnection GetConnection()
         {
@@ -30,7 +35,6 @@ namespace GestionCommerciale.Data
                 {
                     Console.WriteLine("Tentative de connexion à MySQL...");
                     conn.Open();
-
                     if (conn.State == ConnectionState.Open)
                         Console.WriteLine("SUCCÈS : La connexion est établie !");
                 }
