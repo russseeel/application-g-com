@@ -10,4 +10,4 @@ public partial class AccueilWindow : Window
         InitializeComponent();
         DataContext = new AccueilViewModel();
     }
-}
+};

@@ -1,5 +1,5 @@
-using ReactiveUI;
-using System.Reactive;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Threading.Tasks;
 
@@ -12,38 +12,32 @@ public class AccueilViewModel : ViewModelBase
     public string StatusMessage
     {
         get => _statusMessage;
-        set { this.RaiseAndSetIfChanged(ref _statusMessage, value); }
+        set => SetProperty(ref _statusMessage, value);
     }
 
-    public ReactiveCommand<Unit, Unit> ManageClientsCommand { get; }
-    public ReactiveCommand<Unit, Unit> ManageProductsCommand { get; }
-    public ReactiveCommand<Unit, Unit> ManageOrdersCommand { get; }
+    public IRelayCommand ManageClientsCommand { get; }
+    public IRelayCommand ManageProductsCommand { get; }
+    public IRelayCommand ManageOrdersCommand { get; }
 
     public AccueilViewModel()
     {
-       
         StatusMessage = "Prêt - En attente de connexion BDD";
 
-        
-        ManageClientsCommand = ReactiveCommand.CreateFromTask(async () =>
+        ManageClientsCommand = new RelayCommand(() =>
         {
             StatusMessage = "Ouverture de la gestion des clients...";
-            
         });
 
-        ManageProductsCommand = ReactiveCommand.CreateFromTask(async () =>
+        ManageProductsCommand = new RelayCommand(() =>
         {
             StatusMessage = "Ouverture de la gestion des produits...";
-           
         });
 
-        ManageOrdersCommand = ReactiveCommand.CreateFromTask(async () =>
+        ManageOrdersCommand = new RelayCommand(() =>
         {
             StatusMessage = "Ouverture de la gestion des commandes...";
-            
-        }); 
+        });
 
-       
         _ = CheckDatabaseConnectionAsync();
     }
 
@@ -51,13 +45,12 @@ public class AccueilViewModel : ViewModelBase
     {
         try
         {
-           
             await Task.Delay(500);
-            StatusMessage = "✓ Connexion à la base de données : OK";
+            StatusMessage = "Connexion à la base de données : OK";
         }
         catch (Exception ex)
         {
-            StatusMessage = $"✗ Erreur de connexion : {ex.Message}";
+            StatusMessage = $"Erreur de connexion : {ex.Message}";
         }
     }
-} 
+}

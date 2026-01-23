@@ -33,7 +33,7 @@
 
       
         <TextBlock
-            Text="GESTION COMMERCIALE - DASHBOARD"
+            Text=" GESTION COMMERCIALE - DASHBOARD "
             FontSize="32"
             FontWeight="Bold"
             FontFamily="Segoe UI"
