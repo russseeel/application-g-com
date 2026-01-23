@@ -1,39 +1,37 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:GestionCommerciale.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
-        x:Class="GestionCommerciale.Views.AccueilWindow"
-        Width="1000" Height="600"
-        WindowStartupLocation="CenterScreen"
-        Title="Gestion Commerciale"
-        Background="#F8FAFC">
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:GestionCommerciale.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="GestionCommerciale.Views.AccueilView"
+             Background="#F8FAFC">
 
-        <Window.Styles>
-    <Style Selector="Button">
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-    </Style>
-        </Window.Styles>
+    <!-- Styles -->
+    <UserControl.Styles>
+        <Style Selector="Button">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Styles>
 
-
+    <!-- DataContext uniquement pour le Designer -->
     <Design.DataContext>
         <vm:AccueilViewModel/>
     </Design.DataContext>
 
-   
+    <!-- UI -->
     <Grid Margin="40">
-  
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/> 
-            <RowDefinition Height="*"/>      
-            <RowDefinition Height="Auto"/>   
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-      
+        <!-- Titre -->
         <TextBlock
-            Text=" GESTION COMMERCIALE - DASHBOARD "
+            Text="GESTION COMMERCIALE - DASHBOARD"
             FontSize="32"
             FontWeight="Bold"
             FontFamily="Segoe UI"
@@ -41,7 +39,7 @@
             Margin="0,0,0,60"
             Foreground="#2563EB"/>
 
-        
+        <!-- Boutons -->
         <StackPanel Grid.Row="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -56,8 +54,7 @@
                     Background="#2563EB"
                     Foreground="White"
                     CornerRadius="8"
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Center"/>
+                    HorizontalAlignment="Stretch"/>
 
             <Button Content="Gérer les Produits"
                     Command="{Binding ManageProductsCommand}"
@@ -67,8 +64,7 @@
                     Background="#2563EB"
                     Foreground="White"
                     CornerRadius="8"
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Center"/>
+                    HorizontalAlignment="Stretch"/>
 
             <Button Content="Gérer les Commandes"
                     Command="{Binding ManageOrdersCommand}"
@@ -78,12 +74,11 @@
                     Background="#2563EB"
                     Foreground="White"
                     CornerRadius="8"
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Center"/>
+                    HorizontalAlignment="Stretch"/>
 
         </StackPanel>
 
-       
+        <!-- Status -->
         <Border Grid.Row="2"
                 Background="#E2E8F0"
                 CornerRadius="6"
@@ -96,6 +91,6 @@
                 FontSize="14"
                 FontFamily="Segoe UI"/>
         </Border>
-    </Grid>
 
-</Window>
+    </Grid>
+</UserControl>

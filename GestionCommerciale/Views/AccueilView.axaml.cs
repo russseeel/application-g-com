@@ -3,9 +3,9 @@ using GestionCommerciale.ViewModels;
 
 namespace GestionCommerciale.Views;
 
-public partial class AccueilWindow : Window
+public partial class AccueilView : UserControl
 {
-    public AccueilWindow()
+    public AccueilView()
     {
         InitializeComponent();
         DataContext = new AccueilViewModel();
