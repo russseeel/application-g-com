@@ -1,0 +1,264 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:GestionCommerciale.ViewModels"
+             x:Class="GestionCommerciale.Views.ClientsView"
+             x:DataType="vm:ClientsViewModel"
+             Background="White">
+  
+  <UserControl.DataContext>
+    <vm:ClientsViewModel />
+  </UserControl.DataContext>
+
+  <Grid Margin="20">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <!-- Titre -->
+    <TextBlock Grid.Row="0" 
+               Text="Gestion des Clients" 
+               FontSize="24" 
+               FontWeight="Bold" 
+               Foreground="#2C3E50"
+               Margin="0,0,0,20" />
+
+    <!-- Barre de recherche -->
+    <Grid Grid.Row="1" Margin="0,0,0,20">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <TextBox Grid.Column="0" 
+               Text="{Binding SearchKeyword}" 
+               Watermark="Rechercher par nom ou email..."
+               Height="35"
+               VerticalContentAlignment="Center"
+               Margin="0,0,10,0" />
+
+      <Button Grid.Column="1" 
+              Content="Rechercher" 
+              Click="OnRechercherClick"
+              Background="#3498DB"
+              Foreground="White"
+              Height="35"
+              Padding="20,0"
+              Margin="0,0,10,0"
+              CornerRadius="4"
+              HorizontalContentAlignment="Center"
+              VerticalContentAlignment="Center" />
+
+      <Button Grid.Column="2" 
+              Content="Rafraîchir" 
+              Click="OnRafraichirClick"
+              Background="#95A5A6"
+              Foreground="White"
+              Height="35"
+              Padding="20,0"
+              CornerRadius="4"
+              HorizontalContentAlignment="Center"
+              VerticalContentAlignment="Center" />
+    </Grid>
+
+    <!-- DataGrid pour afficher les clients -->
+    <Border Grid.Row="2" 
+            BorderBrush="#BDC3C7" 
+            BorderThickness="1" 
+            CornerRadius="4"
+            Margin="0,0,0,20"
+            Background="White">
+      <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <ItemsControl ItemsSource="{Binding Clients}" Background="White" x:Name="ClientsListControl">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          
+          <ItemsControl.Template>
+            <ControlTemplate>
+              <StackPanel>
+                <!-- En-têtes -->
+                <Grid Background="#ECF0F1" Height="40">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="220" />
+                    <ColumnDefinition Width="280" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  
+                  <TextBlock Grid.Column="0" Text="ID" FontWeight="Bold" Foreground="#2C3E50" 
+                             VerticalAlignment="Center" Margin="10,0" />
+                  <TextBlock Grid.Column="1" Text="Nom Complet" FontWeight="Bold" Foreground="#2C3E50" 
+                             VerticalAlignment="Center" Margin="10,0" />
+                  <TextBlock Grid.Column="2" Text="Email" FontWeight="Bold" Foreground="#2C3E50" 
+                             VerticalAlignment="Center" Margin="10,0" />
+                  <TextBlock Grid.Column="3" Text="Téléphone" FontWeight="Bold" Foreground="#2C3E50" 
+                             VerticalAlignment="Center" Margin="10,0" />
+                  <TextBlock Grid.Column="4" Text="Ville" FontWeight="Bold" Foreground="#2C3E50" 
+                             VerticalAlignment="Center" Margin="10,0" />
+                </Grid>
+                
+                <!-- Lignes de données -->
+                <ItemsPresenter />
+              </StackPanel>
+            </ControlTemplate>
+          </ItemsControl.Template>
+          
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" x:Name="RowBorder">
+                <Grid Background="White" Height="35" PointerPressed="OnRowClick" Cursor="Hand">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="220" />
+                    <ColumnDefinition Width="280" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  
+                  <TextBlock Grid.Column="0" Text="{Binding Id}" Foreground="Black" 
+                             VerticalAlignment="Center" Margin="10,0" FontSize="13" />
+                  <TextBlock Grid.Column="1" Text="{Binding NomComplet}" Foreground="Black" 
+                             FontWeight="SemiBold" VerticalAlignment="Center" Margin="10,0" FontSize="13" />
+                  <TextBlock Grid.Column="2" Text="{Binding Email}" Foreground="Black" 
+                             VerticalAlignment="Center" Margin="10,0" FontSize="13" />
+                  <TextBlock Grid.Column="3" Text="{Binding Telephone}" Foreground="Black" 
+                             VerticalAlignment="Center" Margin="10,0" FontSize="13" />
+                  <TextBlock Grid.Column="4" Text="{Binding Ville}" Foreground="Black" 
+                             VerticalAlignment="Center" Margin="10,0" FontSize="13" />
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+    </Border>
+
+    <!-- Formulaire de saisie -->
+    <Border Grid.Row="3" 
+            Background="#ECF0F1" 
+            CornerRadius="4" 
+            Padding="20"
+            Margin="0,0,0,20">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> <!-- Titre -->
+            <RowDefinition Height="Auto" /> <!-- Nom / Prénom -->
+            <RowDefinition Height="Auto" /> <!-- Email / Téléphone -->
+            <RowDefinition Height="Auto" /> <!-- Adresse -->
+          </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Titre du formulaire -->
+        <TextBlock Grid.Row="0" 
+                   Grid.ColumnSpan="2"
+                   Text="Informations du Client"
+                   FontSize="16"
+                   FontWeight="SemiBold"
+                   Foreground="#2C3E50"
+                   Margin="0,0,0,15" />
+
+        <!-- Ligne 1 : Nom et Prénom -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,10,10">
+          <TextBlock Text="Nom *" Margin="0,0,0,5" Foreground="#34495E" />
+          <TextBox Text="{Binding Nom}" Height="35" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,10">
+          <TextBlock Text="Prénom *" Margin="0,0,0,5" Foreground="#34495E" />
+          <TextBox Text="{Binding Prenom}" Height="35" />
+        </StackPanel>
+
+        <!-- Ligne 2 : Email et Téléphone -->
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,10,10">
+          <TextBlock Text="Email *" Margin="0,0,0,5" Foreground="#34495E" />
+          <TextBox Text="{Binding Email}" Height="35" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Margin="10,0,0,10">
+          <TextBlock Text="Téléphone" Margin="0,0,0,5" Foreground="#34495E" />
+          <TextBox Text="{Binding Telephone}" Height="35" />
+        </StackPanel>
+
+        <!-- Ligne 3 : Adresse -->
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0,0,0,0">
+          <TextBlock Text="Adresse" Margin="0,0,0,5" Foreground="#34495E" />
+          <TextBox Text="{Binding Adresse}" 
+                   Height="60" 
+                   AcceptsReturn="True"
+                   TextWrapping="Wrap" />
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- Boutons d'action et message de statut -->
+    <Grid Grid.Row="4">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <!-- Boutons -->
+      <StackPanel Grid.Row="0" 
+                  Orientation="Horizontal" 
+                  HorizontalAlignment="Left"
+                  Spacing="10"
+                  Margin="0,0,0,10">
+        
+        <Button Content="Ajouter" 
+                Click="OnAjouterClick"
+                Background="#27AE60"
+                Foreground="White"
+                Height="40"
+                Padding="25,0"
+                CornerRadius="4"
+                FontWeight="SemiBold"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center" />
+
+        <Button Content="Modifier" 
+                Click="OnModifierClick"
+                Background="#F39C12"
+                Foreground="White"
+                Height="40"
+                Padding="25,0"
+                CornerRadius="4"
+                FontWeight="SemiBold"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center" />
+
+        <Button Content="Supprimer" 
+                Click="OnSupprimerClick"
+                Background="#E74C3C"
+                Foreground="White"
+                Height="40"
+                Padding="25,0"
+                CornerRadius="4"
+                FontWeight="SemiBold"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center" />
+      </StackPanel>
+
+      <!-- Message de statut -->
+      <Border Grid.Row="1" 
+              Background="#D5DBDB" 
+              CornerRadius="4" 
+              Padding="15,10">
+        <TextBlock Text="{Binding StatusMessage}" 
+                   Foreground="#2C3E50"
+                   FontWeight="Medium" />
+      </Border>
+    </Grid>
+
+  </Grid>
+</UserControl>
