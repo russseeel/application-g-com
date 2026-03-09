@@ -3,7 +3,7 @@
              xmlns:vm="using:GestionCommerciale.ViewModels"
              x:Class="GestionCommerciale.Views.CommandesView"
              x:DataType="vm:CommandesViewModel"
-             Background="White">
+             Background="{DynamicResource MainBackground}">
   
   <UserControl.DataContext>
     <vm:CommandesViewModel />
@@ -21,9 +21,9 @@
     <!-- Titre -->
     <TextBlock Grid.Row="0" 
                Text="Gestion des Commandes" 
-               FontSize="24" 
+               FontSize="28" 
                FontWeight="Bold" 
-               Foreground="#2C3E50"
+               Foreground="{DynamicResource AccentYellow}"
                Margin="0,0,0,20" />
 
     <!-- Barre de recherche / filtres -->
@@ -38,18 +38,18 @@
                   Spacing="10">
         <TextBlock Text="Filtrer par:" 
                    VerticalAlignment="Center" 
-                   Foreground="#34495E"
+                   Foreground="{DynamicResource TextSecondary}"
                    FontWeight="SemiBold" />
         
         <ComboBox Width="200"
                   PlaceholderText="Tous les clients"
-                  Height="35">
+                  Height="38">
           <ComboBoxItem Content="Tous les clients" />
         </ComboBox>
         
         <ComboBox Width="200"
                   PlaceholderText="Tous les produits"
-                  Height="35">
+                  Height="38">
           <ComboBoxItem Content="Tous les produits" />
         </ComboBox>
       </StackPanel>
@@ -57,9 +57,11 @@
       <Button Grid.Column="1" 
               Content="Rafraîchir" 
               Click="OnRafraichirClick"
-              Background="#95A5A6"
-              Foreground="White"
-              Height="35"
+              Background="{DynamicResource PanelBackground}"
+              Foreground="{DynamicResource TextSecondary}"
+              BorderBrush="{DynamicResource BorderColor}"
+              BorderThickness="1"
+              Height="38"
               Padding="20,0"
               CornerRadius="4"
               HorizontalContentAlignment="Center"
@@ -68,13 +70,13 @@
 
     <!-- Liste des commandes -->
     <Border Grid.Row="2" 
-            BorderBrush="#BDC3C7" 
+            BorderBrush="{DynamicResource BorderColor}" 
             BorderThickness="1" 
             CornerRadius="4"
             Margin="0,0,0,20"
-            Background="White">
+            Background="{DynamicResource PanelBackground}">
       <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <ItemsControl ItemsSource="{Binding Commandes}" Background="White" x:Name="CommandesListControl">
+        <ItemsControl ItemsSource="{Binding Commandes}" Background="Transparent" x:Name="CommandesListControl">
           <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
               <StackPanel />
@@ -85,7 +87,7 @@
             <ControlTemplate>
               <StackPanel>
                 <!-- En-têtes -->
-                <Grid Background="#ECF0F1" Height="40">
+                <Grid Background="{DynamicResource BorderColor}" Height="40">
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60" />
                     <ColumnDefinition Width="220" />
@@ -95,17 +97,17 @@
                     <ColumnDefinition Width="*" />
                   </Grid.ColumnDefinitions>
                   
-                  <TextBlock Grid.Column="0" Text="ID" FontWeight="Bold" Foreground="#2C3E50" 
+                  <TextBlock Grid.Column="0" Text="ID" FontWeight="SemiBold" Foreground="{DynamicResource AccentYellow}" 
                              VerticalAlignment="Center" Margin="10,0" />
-                  <TextBlock Grid.Column="1" Text="Client" FontWeight="Bold" Foreground="#2C3E50" 
+                  <TextBlock Grid.Column="1" Text="Client" FontWeight="SemiBold" Foreground="{DynamicResource AccentYellow}" 
                              VerticalAlignment="Center" Margin="10,0" />
-                  <TextBlock Grid.Column="2" Text="Produit" FontWeight="Bold" Foreground="#2C3E50" 
+                  <TextBlock Grid.Column="2" Text="Produit" FontWeight="SemiBold" Foreground="{DynamicResource AccentYellow}" 
                              VerticalAlignment="Center" Margin="10,0" />
-                  <TextBlock Grid.Column="3" Text="Quantité" FontWeight="Bold" Foreground="#2C3E50" 
+                  <TextBlock Grid.Column="3" Text="Quantité" FontWeight="SemiBold" Foreground="{DynamicResource AccentYellow}" 
                              VerticalAlignment="Center" Margin="10,0" />
-                  <TextBlock Grid.Column="4" Text="Montant Total" FontWeight="Bold" Foreground="#2C3E50" 
+                  <TextBlock Grid.Column="4" Text="Montant Total" FontWeight="SemiBold" Foreground="{DynamicResource AccentYellow}" 
                              VerticalAlignment="Center" Margin="10,0" />
-                  <TextBlock Grid.Column="5" Text="Date" FontWeight="Bold" Foreground="#2C3E50" 
+                  <TextBlock Grid.Column="5" Text="Date" FontWeight="SemiBold" Foreground="{DynamicResource AccentYellow}" 
                              VerticalAlignment="Center" Margin="10,0" />
                 </Grid>
                 
@@ -117,8 +119,8 @@
           
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" x:Name="RowBorder">
-                <Grid Background="White" Height="35" PointerPressed="OnRowClick" Cursor="Hand">
+              <Border BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" x:Name="RowBorder">
+                <Grid Background="Transparent" Height="40" PointerPressed="OnRowClick" Cursor="Hand">
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60" />
                     <ColumnDefinition Width="220" />
@@ -128,21 +130,21 @@
                     <ColumnDefinition Width="*" />
                   </Grid.ColumnDefinitions>
                   
-                  <TextBlock Grid.Column="0" Text="{Binding Id}" Foreground="Black" 
-                             VerticalAlignment="Center" Margin="10,0" FontSize="13" />
-                  <TextBlock Grid.Column="1" Text="{Binding NomClient}" Foreground="Black" 
-                             FontWeight="SemiBold" VerticalAlignment="Center" Margin="10,0" FontSize="13" />
-                  <TextBlock Grid.Column="2" Text="{Binding NomProduit}" Foreground="Black" 
-                             VerticalAlignment="Center" Margin="10,0" FontSize="13" />
-                  <TextBlock Grid.Column="3" Text="{Binding Quantite}" Foreground="Black" 
-                             VerticalAlignment="Center" Margin="10,0" FontSize="13" />
-                  <TextBlock Grid.Column="4" Foreground="#27AE60" FontWeight="SemiBold"
-                             VerticalAlignment="Center" Margin="10,0" FontSize="13">
+                  <TextBlock Grid.Column="0" Text="{Binding Id}" Foreground="{DynamicResource TextSecondary}" 
+                             VerticalAlignment="Center" Margin="10,0" FontSize="14" />
+                  <TextBlock Grid.Column="1" Text="{Binding NomClient}" Foreground="{DynamicResource TextPrimary}" 
+                             FontWeight="SemiBold" VerticalAlignment="Center" Margin="10,0" FontSize="14" />
+                  <TextBlock Grid.Column="2" Text="{Binding NomProduit}" Foreground="{DynamicResource TextSecondary}" 
+                             VerticalAlignment="Center" Margin="10,0" FontSize="14" />
+                  <TextBlock Grid.Column="3" Text="{Binding Quantite}" Foreground="{DynamicResource TextSecondary}" 
+                             VerticalAlignment="Center" Margin="10,0" FontSize="14" />
+                  <TextBlock Grid.Column="4" Foreground="{DynamicResource AccentYellow}" FontWeight="SemiBold"
+                             VerticalAlignment="Center" Margin="10,0" FontSize="14">
                     <Run Text="{Binding MontantTotal, StringFormat={}{0:F2}}" />
                     <Run Text=" €" />
                   </TextBlock>
                   <TextBlock Grid.Column="5" Text="{Binding DateCommande, StringFormat={}{0:dd/MM/yyyy HH:mm}}" 
-                             Foreground="Black" VerticalAlignment="Center" Margin="10,0" FontSize="13" />
+                             Foreground="{DynamicResource TextSecondary}" VerticalAlignment="Center" Margin="10,0" FontSize="14" />
                 </Grid>
               </Border>
             </DataTemplate>
@@ -153,7 +155,9 @@
 
     <!-- Formulaire de création de commande -->
     <Border Grid.Row="3" 
-            Background="#ECF0F1" 
+            Background="{DynamicResource PanelBackground}" 
+            BorderBrush="{DynamicResource BorderColor}"
+            BorderThickness="1"
             CornerRadius="4" 
             Padding="20"
             Margin="0,0,0,20">
@@ -173,14 +177,14 @@
         <TextBlock Grid.Row="0" 
                    Grid.ColumnSpan="2"
                    Text="Nouvelle Commande"
-                   FontSize="16"
+                   FontSize="18"
                    FontWeight="SemiBold"
-                   Foreground="#2C3E50"
+                   Foreground="{DynamicResource AccentYellow}"
                    Margin="0,0,0,15" />
 
         <!-- Ligne 1 : Client et Produit -->
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,10,10">
-          <TextBlock Text="Client *" Margin="0,0,0,5" Foreground="#34495E" />
+          <TextBlock Text="Client *" Margin="0,0,0,5" Foreground="{DynamicResource TextSecondary}" />
           <ComboBox ItemsSource="{Binding Clients}"
                     SelectedItem="{Binding SelectedClient}"
                     PlaceholderText="Sélectionner un client"
@@ -195,7 +199,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,10">
-          <TextBlock Text="Produit *" Margin="0,0,0,5" Foreground="#34495E" />
+          <TextBlock Text="Produit *" Margin="0,0,0,5" Foreground="{DynamicResource TextSecondary}" />
           <ComboBox ItemsSource="{Binding Produits}"
                     SelectedItem="{Binding SelectedProduit}"
                     PlaceholderText="Sélectionner un produit"
@@ -209,7 +213,7 @@
                     <Run Text=" - "/>
                     <Run Text="{Binding PrixUnitaire, StringFormat={}{0:F2} €}"/>
                   </TextBlock>
-                  <TextBlock FontSize="11" Foreground="#666">
+                  <TextBlock FontSize="11" Foreground="{DynamicResource TextSecondary}">
                     <Run Text="Stock: "/>
                     <Run Text="{Binding Stock}"/>
                   </TextBlock>
@@ -221,7 +225,7 @@
 
         <!-- Ligne 2 : Quantité et Info produit -->
         <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,10,10">
-          <TextBlock Text="Quantité *" Margin="0,0,0,5" Foreground="#34495E" />
+          <TextBlock Text="Quantité *" Margin="0,0,0,5" Foreground="{DynamicResource TextSecondary}" />
           <NumericUpDown Value="{Binding Quantite}"
                          Minimum="0"
                          Maximum="9999"
@@ -231,24 +235,26 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="1" Margin="10,0,0,10">
-          <TextBlock Text="Informations" Margin="0,0,0,5" Foreground="#34495E" />
-          <Border Background="White" 
+          <TextBlock Text="Informations" Margin="0,0,0,5" Foreground="{DynamicResource TextSecondary}" />
+          <Border Background="{DynamicResource MainBackground}" 
+                  BorderBrush="{DynamicResource BorderColor}"
+                  BorderThickness="1"
                   CornerRadius="4" 
                   Padding="10"
                   Height="35"
                   VerticalAlignment="Top">
             <Grid>
               <TextBlock VerticalAlignment="Center" 
-                         Foreground="#7F8C8D"
+                         Foreground="{DynamicResource TextSecondary}"
                          IsVisible="{Binding SelectedProduit, Converter={x:Static ObjectConverters.IsNull}}">
                 Sélectionnez un produit
               </TextBlock>
               <StackPanel Orientation="Horizontal" 
                           VerticalAlignment="Center"
                           IsVisible="{Binding SelectedProduit, Converter={x:Static ObjectConverters.IsNotNull}}">
-                <TextBlock Foreground="#34495E" FontSize="13">
+                <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="13">
                   <Run Text="Prix: " FontWeight="SemiBold"/>
-                  <Run Text="{Binding PrixUnitaire, StringFormat={}{0:F2} €}"/>
+                  <Run Text="{Binding PrixUnitaire, StringFormat={}{0:F2} €}" Foreground="{DynamicResource AccentYellow}"/>
                   <Run Text=" | "/>
                   <Run Text="Stock: " FontWeight="SemiBold"/>
                   <Run Text="{Binding StockDisponible}"/>
@@ -260,15 +266,17 @@
 
         <!-- Ligne 3 : Montant total et message d'erreur -->
         <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,10,0">
-          <TextBlock Text="Montant Total" Margin="0,0,0,5" Foreground="#34495E" />
-          <Border Background="#E8F5E9" 
+          <TextBlock Text="Montant Total" Margin="0,0,0,5" Foreground="{DynamicResource TextSecondary}" />
+          <Border Background="{DynamicResource MainBackground}" 
+                  BorderBrush="{DynamicResource BorderColor}"
+                  BorderThickness="1"
                   CornerRadius="4" 
                   Padding="15,10"
                   Height="45">
             <TextBlock VerticalAlignment="Center" 
                        FontSize="18" 
                        FontWeight="Bold" 
-                       Foreground="#27AE60">
+                       Foreground="{DynamicResource AccentYellow}">
               <Run Text="{Binding MontantTotal, StringFormat={}{0:F2}}"/>
               <Run Text=" €"/>
             </TextBlock>
@@ -276,24 +284,28 @@
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="1" Margin="10,0,0,0">
-          <TextBlock Text="Statut" Margin="0,0,0,5" Foreground="#34495E" />
-          <Border Background="#FFEBEE" 
+          <TextBlock Text="Statut" Margin="0,0,0,5" Foreground="{DynamicResource TextSecondary}" />
+          <Border Background="#4A1C1C" 
+                  BorderBrush="#E74C3C"
+                  BorderThickness="1"
                   CornerRadius="4" 
                   Padding="10"
                   Height="45"
                   IsVisible="{Binding IsStockInsuffisant}">
             <TextBlock Text="⚠ Stock insuffisant !" 
-                       Foreground="#C62828"
+                       Foreground="#FF6B6B"
                        FontWeight="Bold"
                        VerticalAlignment="Center" />
           </Border>
-          <Border Background="#E8F5E9" 
+          <Border Background="#1A3A22" 
+                  BorderBrush="#27AE60"
+                  BorderThickness="1"
                   CornerRadius="4" 
                   Padding="10"
                   Height="45"
                   IsVisible="{Binding !IsStockInsuffisant}">
             <TextBlock Text="✓ Prêt à commander" 
-                       Foreground="#27AE60"
+                       Foreground="#4DB6AC"
                        FontWeight="SemiBold"
                        VerticalAlignment="Center" />
           </Border>
@@ -313,26 +325,28 @@
       <StackPanel Grid.Row="0" 
                   Orientation="Horizontal" 
                   HorizontalAlignment="Left"
-                  Spacing="10"
-                  Margin="0,0,0,10">
+                  Spacing="15"
+                  Margin="0,0,0,15">
         
         <Button Content="Créer Commande" 
                 Click="OnCreerCommandeClick"
-                Background="#27AE60"
-                Foreground="White"
-                Height="40"
-                Padding="25,0"
+                Background="{DynamicResource AccentYellow}"
+                Foreground="#121212"
+                Height="42"
+                Padding="30,0"
                 CornerRadius="4"
-                FontWeight="SemiBold"
+                FontWeight="Bold"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center" />
 
         <Button Content="Voir Détails" 
                 Click="OnVoirDetailsClick"
-                Background="#3498DB"
-                Foreground="White"
-                Height="40"
-                Padding="25,0"
+                Background="{DynamicResource PanelBackground}"
+                Foreground="{DynamicResource TextPrimary}"
+                BorderBrush="{DynamicResource AccentYellow}"
+                BorderThickness="1"
+                Height="42"
+                Padding="30,0"
                 CornerRadius="4"
                 FontWeight="SemiBold"
                 HorizontalContentAlignment="Center"
@@ -340,10 +354,12 @@
 
         <Button Content="Rafraîchir" 
                 Click="OnRafraichirClick"
-                Background="#95A5A6"
-                Foreground="White"
-                Height="40"
-                Padding="25,0"
+                Background="{DynamicResource PanelBackground}"
+                Foreground="{DynamicResource TextSecondary}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="1"
+                Height="42"
+                Padding="30,0"
                 CornerRadius="4"
                 FontWeight="SemiBold"
                 HorizontalContentAlignment="Center"
@@ -352,11 +368,13 @@
 
       <!-- Message de statut -->
       <Border Grid.Row="1" 
-              Background="#D5DBDB" 
+              Background="{DynamicResource PanelBackground}" 
+              BorderBrush="{DynamicResource BorderColor}"
+              BorderThickness="1"
               CornerRadius="4" 
               Padding="15,10">
         <TextBlock Text="{Binding StatusMessage}" 
-                   Foreground="#2C3E50"
+                   Foreground="{DynamicResource TextPrimary}"
                    FontWeight="Medium" />
       </Border>
     </Grid>

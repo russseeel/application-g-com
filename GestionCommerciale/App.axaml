@@ -1,22 +1,20 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="GestionCommerciale.App"
-             RequestedThemeVariant="Light">
-    
-    <Application.Styles>
-        <FluentTheme />
-        
-        <Style Selector="TextBlock">
-            <Setter Property="FontFamily" Value="Segoe UI, Inter"/>
-        </Style>
-        
-        <Style Selector="Button">
-            <Setter Property="Background" Value="#2562EB"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Padding" Value="12"/>
-            <Setter Property="CornerRadius" Value="8"/>
-        </Style>
-    </Application.Styles>
-    
+             RequestedThemeVariant="Dark">
+  
+  <Application.Resources>
+    <SolidColorBrush x:Key="MainBackground">#121212</SolidColorBrush>
+    <SolidColorBrush x:Key="PanelBackground">#1E1E1E</SolidColorBrush>
+    <SolidColorBrush x:Key="AccentYellow">#F1C40F</SolidColorBrush>
+    <SolidColorBrush x:Key="AccentYellowHover">#D4AC0D</SolidColorBrush>
+    <SolidColorBrush x:Key="TextPrimary">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="TextSecondary">#B3B3B3</SolidColorBrush>
+    <SolidColorBrush x:Key="BorderColor">#333333</SolidColorBrush>
+  </Application.Resources>
+
+  <Application.Styles>
+    <FluentTheme />
+  </Application.Styles>
+  
 </Application>

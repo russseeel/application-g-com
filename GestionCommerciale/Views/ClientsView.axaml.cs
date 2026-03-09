@@ -25,19 +25,26 @@ namespace GestionCommerciale.Views
                 // Réinitialiser la couleur de la ligne précédente
                 if (_lastSelectedRow != null)
                 {
-                    _lastSelectedRow.Background = Brushes.White;
+                    _lastSelectedRow.Background = Brushes.Transparent;
                 }
 
-                // Mettre en surbrillance la nouvelle ligne
-                grid.Background = new SolidColorBrush(Color.Parse("#3498DB"));
+                // Mettre en surbrillance la nouvelle ligne (Gris moyen)
+                grid.Background = new SolidColorBrush(Color.Parse("#333333"));
                 _lastSelectedRow = grid;
 
-                // Mettre à jour les TextBlocks de la ligne sélectionnée en blanc
+                // Mettre à jour les TextBlocks de la ligne sélectionnée en blanc/jaune
                 foreach (var child in grid.Children)
                 {
                     if (child is TextBlock tb)
                     {
-                        tb.Foreground = Brushes.White;
+                        if (tb.Text == client.NomComplet)
+                        {
+                            tb.Foreground = new SolidColorBrush(Color.Parse("#F1C40F")); // AccentYellow
+                        }
+                        else
+                        {
+                            tb.Foreground = Brushes.White;
+                        }
                     }
                 }
 
