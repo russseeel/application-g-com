@@ -5,8 +5,36 @@
         Title="Gestion Commerciale"
         Width="1200"
         Height="800"
-        Background="White">
-    
-    <views:ClientsView />
-    
+        Background="{DynamicResource MainBackground}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{DynamicResource PanelBackground}" Padding="15,10" BorderBrush="{DynamicResource AccentYellow}" BorderThickness="0,0,0,2">
+            <Button Name="BtnBackToMenu" Content="← Retour au menu principal"
+                    VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Click="BtnBackToMenu_Click" IsVisible="False" 
+                    Background="Transparent" Foreground="{DynamicResource AccentYellow}"
+                    FontWeight="SemiBold" FontSize="16" />
+        </Border>
+
+        <ContentControl Grid.Row="1" Name="MainContentControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="30">
+                <TextBlock Text="Gestion Commerciale" FontSize="42" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}" HorizontalAlignment="Center" />
+                <TextBlock Text="Menu Principal" FontSize="24" Foreground="{DynamicResource AccentYellow}" HorizontalAlignment="Center" Margin="0,-20,0,20" />
+                
+                <Button Content="Gestion des Clients" Width="360" Height="70" FontSize="20" FontWeight="SemiBold"
+                        HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        Click="BtnClients_Click" Background="{DynamicResource PanelBackground}" Foreground="{DynamicResource TextPrimary}" 
+                        BorderBrush="{DynamicResource AccentYellow}" BorderThickness="2" CornerRadius="8" />
+                        
+                <Button Content="Gestion des Commandes" Width="360" Height="70" FontSize="20" FontWeight="SemiBold"
+                        HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        Click="BtnCommandes_Click" Background="{DynamicResource AccentYellow}" Foreground="#121212" 
+                        CornerRadius="8" />
+            </StackPanel>
+        </ContentControl>
+    </Grid>
 </Window>
